@@ -1,2 +1,1 @@
-# O365
-Office 365 scripts
+# Office 365 Forensic and IR Tools
