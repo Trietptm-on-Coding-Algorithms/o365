@@ -3,6 +3,7 @@ Author: Patrick Olsen
 
 ToDo:
 [ ] Figure out how I want to map the non-1:1 columns
+[ ] Process multiple .csv exported logs vs. 1 at a time
 [ ] Write a better output processor
 [ ] Clean up code
 [ ] Rewrite as a class
