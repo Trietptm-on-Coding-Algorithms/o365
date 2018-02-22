@@ -3,12 +3,18 @@ Author: Patrick Olsen
 
 ToDo:
 [ ] Figure out how I want to map the non-1:1 columns
-[ ] Process multiple .csv exported logs vs. 1 at a time
 [ ] Write a better output processor
 [ ] Clean up code
 [ ] Rewrite as a class
 [ ] Add logging for missed lookups
 [ ] Document
+
+Reference:
+ - https://docs.microsoft.com/en-us/azure/operations-management-suite/oms-solution-office-365
+ - https://msdn.microsoft.com/en-us/office-365/office-365-management-activity-api-schema
+ - https://msdn.microsoft.com/office-365/office-365-management-activity-api-schema
+ - https://support.office.com/en-us/article/detailed-properties-in-the-office-365-audit-log-ce004100-9e7f-443e-942b-9b04098fcfc3
+
 '''
 
 import csv
@@ -536,8 +542,13 @@ def main():
             data = json.dumps(jd, indent=4)
             operation = jd['Operation']
 
-            results = mappingDict[operation](jd, data)
+            try:
+                results = mappingDict[operation](jd, data)
+            except (KeyError, IndexError) as e:
+                continue
+                
             masterResults.append(results)
+
 
     processOutput(masterResults, workbook, outfile)
 
